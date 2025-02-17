@@ -9,6 +9,7 @@
     --primary-white: #ffffff;
     --primary-grey: #1A1A1A;
     --text-yellow: #F5C518;
+
 }
 
 /* Base */
@@ -82,3 +83,27 @@ body {
     border: none;
     cursor: pointer;
 }
+
+.popular-title {
+    color: var(--primary-white);
+    text-align: center;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-around;
+    color: var(--primary-white);
+    margin-top: 2rem;
+}
+
+.movie-card {
+    display: flex;
+    flex-direction: column-reverse;
+
+}
+
+/* .movie-title {
+    
+} */
