@@ -1,5 +1,6 @@
 import oData from '../data/data.js';
-import { moviesToList } from "/scripts/domUtils.js";
+import { moviesToList, randomTrailers } from "/scripts/domUtils.js";
+import { renderTrailers } from './modules/carousel.js';
 
 export async function fetchTopMovies() {
     const response = await fetch('https://santosnr6.github.io/Data/favoritemovies.json');
@@ -9,33 +10,10 @@ export async function fetchTopMovies() {
     let top20Movies = movies.slice(0, 20);
 
     moviesToList(top20Movies)
-    console.log(top20Movies);
-}
-
-// export async function moviesToList(movies) {
-//     const movieContainer = document.querySelector('#cardContainer')
     
-//     movies.forEach(movie => {
-//         let movieElem = document.createElement('article')
-//         movieElem.classList.add('movie-card')
+    let trailers = randomTrailers(top20Movies, 5);
+    trailers.forEach((trailer, i) => {
+        renderTrailers(trailer, i + 1);
+    });
 
-//         let title = document.createElement('h3')
-//         title.classList.add('movie-title')
-//         title.textContent = movie.Title;
-
-//         let poster = document.createElement('img')
-//         poster.src = movie.Poster;
-//         poster.alt = `${movie.title} poster`
-
-//         movieElem.appendChild(title)
-//         movieElem.appendChild(poster)
-
-//         movieContainer.appendChild(movieElem)
-//     });
-// }
-
-// export async function fetchMovieDetails() {
-//     const response = await fetch('http://www.omdbapi.com/?apikey=6fcInZYueqWcXc8nddQPeJdpbVEPGEFYB6QFeNFn&s=batman')
-//     let data = await response.json();
-//     console.log(data) 
-// }
+}
