@@ -1,5 +1,5 @@
 @import url('./carousel.css');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abel&family=Annapurna+SIL:wght@400;700&family=Baloo+2:wght@400..800&family=Cormorant+Infant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Rasa:ital,wght@0,300..700;1,300..700&family=Sansita:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&family=Yrsa:ital,wght@0,300..700;1,300..700&display=swap');
 
 /* Variables */
 :root {
@@ -9,7 +9,7 @@
     --primary-white: #ffffff;
     --primary-grey: #1A1A1A;
     --text-yellow: #F5C518;
-
+    --text-font: "Abel", serif;
 }
 
 /* Base */
@@ -26,7 +26,7 @@ body {
 
 /* Utils */
 .content-wrapper {
-    max-width: 1180px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 .center {
@@ -77,6 +77,7 @@ body {
 
 .header__fav-btn {
     text-decoration: none;
+    font-family: var(--text-font);
     font-size: 1.5rem;
     color: var(--text-yellow);
     background: none;
@@ -87,6 +88,7 @@ body {
 .popular-title {
     color: var(--primary-white);
     text-align: center;
+    font-family: var(--text-font);
 }
 
 .card-container {
@@ -101,9 +103,22 @@ body {
 .movie-card {
     display: flex;
     flex-direction: column-reverse;
-
+    width: 14rem;
+    cursor: pointer;
 }
 
-/* .movie-title {
-    
-} */
+.movie-card img {
+    width: 100%;
+    height: 21rem;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.movie-title {
+    font-family: var(--text-font);
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: .5rem;
+    padding: .5rem;
+    border-left: solid 1px var(--primary-white);
+} 

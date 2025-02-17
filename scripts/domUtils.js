@@ -11,11 +11,17 @@ export function moviesToList(movies) {
 
         let poster = document.createElement('img')
         poster.src = movie.Poster;
-        poster.alt = `${movie.title} poster`
+        poster.alt = `${movie.Title} poster`
 
         movieElem.appendChild(title)
         movieElem.appendChild(poster)
 
         movieContainer.appendChild(movieElem)
     });
+}
+
+export function randomTrailers(movieList, count = 5) {
+    return movieList
+    .sort(() => Math.random() - 0.5) 
+    .slice(0, count); 
 }
