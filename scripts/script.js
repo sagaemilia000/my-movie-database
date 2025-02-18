@@ -1,8 +1,9 @@
-import { fetchTopMovies } from "/scripts/api.js";
+import { fetchTopMovies,fetchSearch } from "/scripts/api.js";
 
 if(window.location.pathname === '/' || window.location.pathname === '/index.html') {
     console.log('index.html');
     fetchTopMovies()
+
     
 
 } else if(window.location.pathname === '/favorites.html') {
@@ -13,6 +14,7 @@ if(window.location.pathname === '/' || window.location.pathname === '/index.html
 
 } else if(window.location.pathname === '/search.html') {
     console.log('search.html');
+    
 
 }
 
