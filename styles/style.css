@@ -125,14 +125,22 @@ body {
 
 .movie-title {
     font-family: var(--text-font);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     margin-top: .5rem;
     padding: .5rem;
+    height: 4rem;
     border-left: solid 1px var(--primary-white);
 } 
 
-#errorMsg {
-    color: red;
-    display: none;
+.error-msg {
+    color: var(--text-yellow);
+    font-family: var(--text-font);
+}
+
+.search-title {
+    color: var(--primary-white);
+    text-align: center;
+    font-family: var(--text-font);
+    margin-top: 2rem;
 }

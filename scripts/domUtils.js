@@ -27,27 +27,26 @@ export function randomTrailers(movieList, count = 5) {
 }
 
 export function searchedMovieResult(movies) {
-
     console.log(movies);
     const resultContainer = document.querySelector('#searchContainer'); 
     resultContainer.innerHTML = ''; 
 
-    if (movies.length === 0) {
-        resultContainer.innerHTML = '<p>Inga resultat hittades.</p>';
-        return;
-    }
-
     movies.forEach(movie => {
-        const movieElement = document.createElement('article');
+        let movieElement = document.createElement('article');
         movieElement.classList.add('movie-card');
 
-        const title = document.createElement('h3');
+        let title = document.createElement('h3');
         title.classList.add('movie-title');
         title.textContent = movie.Title;
 
-        const poster = document.createElement('img');
+        let poster = document.createElement('img');
         poster.src = movie.Poster;
         poster.alt = `${movie.Title} poster`;
+
+        if (movie.Poster === 'N/A') {
+            poster.src = "./res/icons/missing-poster.svg";  
+            poster.alt = "Ingen bild tillgänglig";
+        }
 
         movieElement.appendChild(title);
         movieElement.appendChild(poster);
