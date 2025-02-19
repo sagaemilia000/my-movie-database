@@ -110,6 +110,7 @@ body {
 } 
 
 .movie-card {
+    position: relative;
     display: flex;
     flex-direction: column-reverse;
     width: 14rem;
@@ -121,6 +122,14 @@ body {
     height: 21rem;
     object-fit: cover;
     border-radius: 4px;
+}
+
+.material-symbols-outlined {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: var(--text-yellow);
+    background-color: rgba(0, 0, 0, 0.545);
 }
 
 .movie-title {
