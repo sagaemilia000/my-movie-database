@@ -5,6 +5,11 @@ export function moviesToList(movies) {
         let movieElem = document.createElement('article')
         movieElem.classList.add('movie-card')
 
+        let starIcon = document.createElement('span')
+        starIcon.classList.add('material-symbols-outlined')
+        starIcon.textContent = 'star'
+        starIcon.addEventListener('click', () => fillStar(starIcon));
+
         let title = document.createElement('h3')
         title.classList.add('movie-title')
         title.textContent = movie.Title;
@@ -15,6 +20,7 @@ export function moviesToList(movies) {
 
         movieElem.appendChild(title)
         movieElem.appendChild(poster)
+        movieElem.appendChild(starIcon)
 
         movieContainer.appendChild(movieElem)
     });
@@ -27,13 +33,17 @@ export function randomTrailers(movieList, count = 5) {
 }
 
 export function searchedMovieResult(movies) {
-    console.log(movies);
     const resultContainer = document.querySelector('#searchContainer'); 
     resultContainer.innerHTML = ''; 
 
     movies.forEach(movie => {
         let movieElement = document.createElement('article');
         movieElement.classList.add('movie-card');
+
+        let starIcon = document.createElement('span')
+        starIcon.classList.add('material-symbols-outlined')
+        starIcon.textContent = 'star'
+        starIcon.addEventListener('click', () => fillStar(starIcon));
 
         let title = document.createElement('h3');
         title.classList.add('movie-title');
@@ -50,8 +60,20 @@ export function searchedMovieResult(movies) {
 
         movieElement.appendChild(title);
         movieElement.appendChild(poster);
+        movieElement.appendChild(starIcon)
 
         resultContainer.appendChild(movieElement);
     });
 
 }
+
+function fillStar(starIcon) {
+    let starFilled = starIcon.classList.toggle('filled')
+
+            if (starFilled) {
+            starIcon.style.fontVariationSettings = "'FILL' 1"
+            } else {
+        starIcon.style.fontVariationSettings = "'FILL' 0"
+        }
+}
+
