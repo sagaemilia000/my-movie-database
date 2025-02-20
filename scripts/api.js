@@ -23,6 +23,7 @@ export async function fetchSearch(query) {
     try {
         const searchResponse = await fetch(`http://www.omdbapi.com/?apikey=1a195302&s=${query}`)
         let data = await searchResponse.json();
+        console.log(data)
 
         if(data.Response === 'False') {
             throw new Error(`Inga filmer med "${query}" hittades`);
