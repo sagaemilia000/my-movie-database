@@ -75,6 +75,10 @@ body {
     cursor: pointer;
 }
 
+.header__form-btn-re {
+    display: none;
+}
+
 .header__fav-btn {
     text-decoration: none;
     font-family: var(--text-font);
@@ -85,6 +89,10 @@ body {
     cursor: pointer;
 }
 
+.header__fav-btn-re {
+    display: none;
+}
+
 .popular-title {
     color: var(--primary-white);
     text-align: center;
@@ -92,34 +100,37 @@ body {
 }
 
 .card-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     gap: 2rem;
-    justify-content: space-around;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-auto-rows: 1fr;
     color: var(--primary-white);
-    margin-top: 2rem;
+    place-items: center;
+    margin: 2rem;
 }
 
 .search-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     gap: 2rem;
-    justify-content: space-around;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-auto-rows: 1fr;
     color: var(--primary-white);
-    margin-top: 2rem;
-} 
+    place-items: center;
+    margin: 2rem;
+}
 
 .movie-card {
     position: relative;
     display: flex;
     flex-direction: column-reverse;
-    width: 14rem;
+    width: clamp(150px, 200px, 14rem);
     cursor: pointer;
 }
 
 .movie-card img {
     width: 100%;
-    height: 21rem;
+    height: auto;
+    aspect-ratio: 2 / 3;
     object-fit: cover;
     border-radius: 4px;
 }
@@ -152,4 +163,72 @@ body {
     text-align: center;
     font-family: var(--text-font);
     margin-top: 2rem;
+}
+
+
+@media (max-width: 576px) {
+
+.header__input {
+    width: 70%;
+    padding: .7rem;
+    border-radius: 1rem 0 0 1rem;
+}
+
+.header__form-btn {
+    width: 3rem;
+    font-size: 10px;
+}
+
+.header__logo {
+    width: 75px;
+}
+
+.header__fav-btn {
+    text-decoration: none;
+    font-family: var(--text-font);
+    font-size: 1rem;
+    display: none;
+}
+
+.header__fav-btn-re {
+    color: var(--text-yellow);
+    text-decoration: none;
+    font-size: 25px;
+    display: block;
+}
+
+.header {
+    padding: 1rem;
+}
+
+.popular-title {
+    font-size: 20px;
+}
+
+.card-container {
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.search-container {
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.movie-card {
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto; 
+}
+
+.movie-title {
+    font-family: var(--text-font);
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: .5rem;
+    padding: .5rem;
+    height: 3rem;
+    border-left: solid 1px var(--primary-white);
+} 
+
 }
