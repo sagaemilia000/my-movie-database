@@ -124,7 +124,6 @@ body {
     display: flex;
     flex-direction: column-reverse;
     width: clamp(150px, 200px, 14rem);
-    cursor: pointer;
 }
 
 .movie-card img {
@@ -141,6 +140,7 @@ body {
     right: 5px;
     color: var(--text-yellow);
     background-color: rgba(0, 0, 0, 0.545);
+    cursor: pointer;
 }
 
 .movie-title {
@@ -151,6 +151,7 @@ body {
     padding: .5rem;
     height: 4rem;
     border-left: solid 1px var(--primary-white);
+    cursor: pointer;
 } 
 
 .error-msg {
@@ -166,69 +167,162 @@ body {
 }
 
 
+/* MOVIE DETALIS*/
+.info-container {
+    display: flex; 
+    align-items: center; 
+    margin: 5rem 2rem;
+}
+
+.movie-poster {
+    width: 20rem; 
+    height: auto; 
+    margin-right: 1rem; 
+}
+
+.movie-title-info {
+    font-family: var(--text-font);
+    font-weight: bolder;
+    font-size: 30px;
+    padding-bottom: 1rem;
+}
+
+.details-container {
+    display: flex;
+    flex-direction: column;
+    color: var(--primary-white);
+    width: 70%;
+    justify-content: space-between;
+}
+
+.info-list {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 14px;
+    font-family: var(--text-font);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-top: solid var(--primary-white) 1px;
+}
+
+.plot-text {
+    font-family: var(--text-font);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-top: solid var(--primary-white) 1px;
+}
+
+@media (max-width: 768px) {
+
+    .info-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .movie-poster {
+        width: 70%; 
+        height: auto; 
+        margin-right: 0; 
+    }
+
+    .movie-title-info {
+        margin-top: 2rem;
+    }
+    
+    .details-container {
+        margin-top: 1rem;
+    }
+}
+
+
 @media (max-width: 576px) {
 
-.header__input {
-    width: 70%;
-    padding: .7rem;
-    border-radius: 1rem 0 0 1rem;
-}
+    .header__input {
+        width: 70%;
+        padding: .7rem;
+        border-radius: 1rem 0 0 1rem;
+    }
 
-.header__form-btn {
-    width: 3rem;
-    font-size: 10px;
-}
+    .header__form-btn {
+        width: 3rem;
+        font-size: 10px;
+    }
 
-.header__logo {
-    width: 75px;
-}
+    .header__logo {
+        width: 75px;
+    }
 
-.header__fav-btn {
-    text-decoration: none;
-    font-family: var(--text-font);
-    font-size: 1rem;
-    display: none;
-}
+    .header__fav-btn {
+        text-decoration: none;
+        font-family: var(--text-font);
+        font-size: 1rem;
+        display: none;
+    }
 
-.header__fav-btn-re {
-    color: var(--text-yellow);
-    text-decoration: none;
-    font-size: 25px;
-    display: block;
-}
+    .header__fav-btn-re {
+        color: var(--text-yellow);
+        text-decoration: none;
+        font-size: 25px;
+        display: block;
+    }
 
-.header {
-    padding: 1rem;
-}
+    .header {
+        padding: 1rem;
+    }
 
-.popular-title {
-    font-size: 20px;
-}
+    .popular-title {
+        font-size: 20px;
+    }
 
-.card-container {
-    gap: 1rem;
-    grid-template-columns: repeat(2, 1fr);
-}
+    .card-container {
+        gap: 1rem;
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-.search-container {
-    gap: 1rem;
-    grid-template-columns: repeat(2, 1fr);
-}
+    .search-container {
+        gap: 1rem;
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-.movie-card {
-    width: 100%;
-    max-width: 200px;
-    margin: 0 auto; 
-}
+    .movie-card {
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto; 
+    }
 
-.movie-title {
-    font-family: var(--text-font);
-    font-size: 14px;
-    font-weight: bold;
-    margin-top: .5rem;
-    padding: .5rem;
-    height: 3rem;
-    border-left: solid 1px var(--primary-white);
-} 
+    .movie-title {
+        font-family: var(--text-font);
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: .5rem;
+        padding: .5rem;
+        height: 3rem;
+        border-left: solid 1px var(--primary-white);
+    } 
+
+    .movie-title-info {
+        font-size: 22px;
+        padding-bottom: 1rem;
+    }
+
+    .details-container {
+        text-align: start;
+    }
+
+    .info-list {
+        flex-direction: column;
+        font-size: 11px;
+    }
+
+    .plot-text {
+        font-size: 14px;
+    }
+
+    .info-container {
+        margin: 3rem 0 0 0;
+    }
 
 }
