@@ -1,5 +1,5 @@
 import oData from '../data/data.js';
-import { moviesToList, randomTrailers, searchedMovieResult } from "/scripts/domUtils.js";
+import { moviesToList, randomTrailers, searchedMovieResult, movieDetailsToDom } from "/scripts/domUtils.js";
 import { renderTrailers } from './modules/carousel.js';
 
 export async function fetchTopMovies() {
@@ -23,7 +23,6 @@ export async function fetchSearch(query) {
     try {
         const searchResponse = await fetch(`http://www.omdbapi.com/?apikey=1a195302&s=${query}`)
         let data = await searchResponse.json();
-        console.log(data)
 
         if(data.Response === 'False') {
             throw new Error(`Inga filmer med "${query}" hittades`);
@@ -44,9 +43,11 @@ export async function fetchSearch(query) {
     
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function searchButton() {
     const searchBtn = document.querySelector('#searchBtn');
     const searchInput = document.querySelector('#searchInput');
+
+    if (!searchBtn || !searchInput) return;
 
         searchBtn.addEventListener('click', (event) => {
             event.preventDefault();
@@ -58,12 +59,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(query)
             } 
         });
-});
+}
 
-document.addEventListener('DOMContentLoaded', () => {
+function searchQry() {
     const query = localStorage.getItem('searchQuery');
 
     if (query) {
         fetchSearch(query);
     }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    searchButton();
+    searchQry();
 });
+
+export async function fetchMovieDetails(movieId) {
+    console.log('fetchDetails')
+    try {
+    const detailResposne = await fetch(`http://www.omdbapi.com/?apikey=1a195302&plot=full&i=${movieId}`)
+    let detailsData = await detailResposne.json();
+    console.log(detailsData)
+    
+    if(detailsData.Response === 'False') {
+        throw new Error('Filmen kunde inte hämtas')
+    }
+
+    
+    movieDetailsToDom(detailsData)
+    
+
+    } catch(error) {
+        console.log('error')
+    }
+
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const movieId = localStorage.getItem('selectedMovieId');
+
+    if (movieId) {
+        fetchMovieDetails(movieId);
+    }
+});
+
+

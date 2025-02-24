@@ -1,4 +1,4 @@
-import { fetchTopMovies } from "/scripts/api.js";
+import { fetchTopMovies, fetchMovieDetails } from "/scripts/api.js";
 
 if(window.location.pathname === '/' || window.location.pathname === '/index.html') {
     console.log('index.html');
