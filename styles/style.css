@@ -154,9 +154,14 @@ body {
     cursor: pointer;
 } 
 
+.error-container {
+    margin-top: 1rem;
+}
+
 .error-msg {
     color: var(--text-yellow);
     font-family: var(--text-font);
+    text-align: center;
 }
 
 .search-title {
@@ -178,6 +183,14 @@ body {
     width: 20rem; 
     height: auto; 
     margin-right: 1rem; 
+    border-radius: 5px;
+}
+
+.missing-poster {
+    width: 20rem; 
+    height: auto; 
+    margin-right: 1rem;
+    border-radius: 5px;
 }
 
 .movie-title-info {
@@ -212,6 +225,20 @@ body {
     padding-top: 1rem;
     padding-bottom: 1rem;
     border-top: solid var(--primary-white) 1px;
+}
+
+.favorites-title {
+    color: var(--primary-white);
+    font-family: var(--text-font);
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.empty-fav {
+    color: var(--primary-white);
+    font-family: var(--text-font);
+    text-align: center;
+    margin-top: 2rem;
 }
 
 @media (max-width: 768px) {

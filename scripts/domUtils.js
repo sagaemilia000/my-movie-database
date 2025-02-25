@@ -1,7 +1,15 @@
 // import { fetchMovieDetails } from "./api.js";
+import { getFavorites, saveFavorites } from "./api.js";
 
 export function moviesToList(movies) {
-    const movieContainer = document.querySelector('#cardContainer')
+    let movieContainer = document.querySelector('#cardContainer')
+    let favorites = getFavorites();
+
+    if(movieContainer) {
+        movieContainer.innerHTML = ''
+    }else {
+        return;
+    }
     
     movies.forEach(movie => {
         let movieElem = document.createElement('article')
@@ -10,15 +18,24 @@ export function moviesToList(movies) {
         let starIcon = document.createElement('span')
         starIcon.classList.add('material-symbols-outlined')
         starIcon.textContent = 'star'
-        starIcon.addEventListener('click', () => fillStar(starIcon));
+
+        let isFavorite = favorites.some(fav => fav.imdbID === movie.imdbID);
+        starIcon.style.fontVariationSettings = isFavorite ? "'FILL' 1" : "'FILL' 0";
+
+        starIcon.addEventListener('click', () => fillStar(starIcon, movie));
 
         let title = document.createElement('h3')
         title.classList.add('movie-title')
         title.textContent = movie.Title;
 
         let poster = document.createElement('img')
-        poster.src = movie.Poster;
-        poster.alt = `${movie.Title} poster`
+        poster.alt = `${movie.Title} poster`;
+       
+        if (movie.Poster === 'N/A') {
+            poster.src = "./res/icons/missing-poster.svg";  
+        } else {
+            poster.src = movie.Poster;
+        }
 
         movieElem.appendChild(title)
         movieElem.appendChild(poster)
@@ -53,19 +70,21 @@ export function searchedMovieResult(movies) {
         let starIcon = document.createElement('span')
         starIcon.classList.add('material-symbols-outlined')
         starIcon.textContent = 'star'
-        starIcon.addEventListener('click', () => fillStar(starIcon));
+        
+
+        starIcon.addEventListener('click', () => fillStar(starIcon, movie));
 
         let title = document.createElement('h3');
         title.classList.add('movie-title');
         title.textContent = movie.Title;
 
         let poster = document.createElement('img');
-        poster.src = movie.Poster;
         poster.alt = `${movie.Title} poster`;
 
         if (movie.Poster === 'N/A') {
             poster.src = "./res/icons/missing-poster.svg";  
-            poster.alt = "Ingen bild tillgänglig";
+        } else {
+            poster.src = movie.Poster;
         }
 
         movieElem.appendChild(title);
@@ -94,8 +113,14 @@ export function movieDetailsToDom(detailsData) {
     //Poster
 
     let posterElement = document.createElement('img')
-    posterElement.src = detailsData.Poster
-    posterElement.classList.add('movie-poster')
+    posterElement.classList.add('missing-poster')
+    posterElement.alt = `${detailsData.Title} poster`;
+    
+    if (detailsData.Poster === 'N/A') {
+        posterElement.src = "./res/icons/missing-poster.svg";  
+    } else {
+        posterElement.src = detailsData.Poster;
+    }
 
     let starIcon = document.createElement('span')
         starIcon.classList.add('material-symbols-outlined')
@@ -103,7 +128,12 @@ export function movieDetailsToDom(detailsData) {
         starIcon.style.width = '2rem'
         starIcon.style.alignSelf = 'flex-end'
         starIcon.textContent = 'star'
-        starIcon.addEventListener('click', () => fillStar(starIcon));
+
+        let favorites = getFavorites();
+        let isFavorite = favorites.some(fav => fav.imdbID === detailsData.imdbID);
+        starIcon.style.fontVariationSettings = isFavorite ? "'FILL' 1" : "'FILL' 0";
+    
+        starIcon.addEventListener('click', () => fillStar(starIcon, detailsData));
 
     //Title
     let titleElement = document.createElement('h1');
@@ -177,14 +207,46 @@ export function movieDetailsToDom(detailsData) {
 }
 
 
+function fillStar(starIcon, movie) {
+    let favorites = getFavorites();
+    let movieId = movie.imdbID;
 
-function fillStar(starIcon) {
-    let starFilled = starIcon.classList.toggle('filled')
+    let index = favorites.findIndex(fav => fav.imdbID === movieId);
 
-            if (starFilled) {
-            starIcon.style.fontVariationSettings = "'FILL' 1"
-            } else {
-        starIcon.style.fontVariationSettings = "'FILL' 0"
-        }
+    if (index === -1) {
+        favorites.push(movie); 
+        starIcon.style.fontVariationSettings = "'FILL' 1"; 
+    } else {
+        favorites.splice(index, 1); 
+        starIcon.style.fontVariationSettings = "'FILL' 0"; 
+    }
+
+    saveFavorites(favorites);
 }
+
+
+export function showFavorites() {
+    const favorites = getFavorites();
+    let movieContainer = document.querySelector('#cardContainer');
+    const emptyFav = document.querySelector('#emptyFav');
+
+    if (movieContainer) {
+        movieContainer.innerHTML = '';
+    }
+
+    if (favorites.length === 0) {
+        if (emptyFav) {
+            emptyFav.textContent = 'No favorites yet';
+            emptyFav.style.display = 'block';
+        }
+        return; 
+    } else if (emptyFav) {
+        emptyFav.style.display = 'none'; 
+    }
+
+    moviesToList(favorites);
+}
+
+
+
 
