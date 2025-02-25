@@ -1,5 +1,5 @@
 import oData from '../data/data.js';
-import { moviesToList, randomTrailers, searchedMovieResult, movieDetailsToDom } from "/scripts/domUtils.js";
+import { moviesToList, randomTrailers, searchedMovieResult, movieDetailsToDom, showFavorites } from "/scripts/domUtils.js";
 import { renderTrailers } from './modules/carousel.js';
 
 export async function fetchTopMovies() {
@@ -25,7 +25,7 @@ export async function fetchSearch(query) {
         let data = await searchResponse.json();
 
         if(data.Response === 'False') {
-            throw new Error(`Inga filmer med "${query}" hittades`);
+            throw new Error(`No movies with "${query}" was found`);
         }
         
         searchedMovieResult(data.Search)
@@ -35,9 +35,9 @@ export async function fetchSearch(query) {
         errorMsg.textContent = error.message
         errorMsg.classList.add('error-msg')
         
-        let searchContainer = document.querySelector('#searchContainer');
-        if(searchContainer) {
-            searchContainer.appendChild(errorMsg);
+        let errorContainer = document.querySelector('.error-container');
+        if(errorContainer) {
+            errorContainer.appendChild(errorMsg);
         }
     }
     
@@ -75,11 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 export async function fetchMovieDetails(movieId) {
-    console.log('fetchDetails')
+    
     try {
     const detailResposne = await fetch(`http://www.omdbapi.com/?apikey=1a195302&plot=full&i=${movieId}`)
     let detailsData = await detailResposne.json();
-    console.log(detailsData)
+    
     
     if(detailsData.Response === 'False') {
         throw new Error('Filmen kunde inte hämtas')
@@ -102,5 +102,21 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchMovieDetails(movieId);
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    localStorage.removeItem('searchQuery'); 
+    const searchInput = document.querySelector('#searchInput');
+    if (searchInput) searchInput.value = ''; 
+});
+
+export function getFavorites() {
+    return JSON.parse(localStorage.getItem('favorites')) || [];
+}
+
+export function saveFavorites(favorites) {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+}
+
+document.addEventListener('DOMContentLoaded', showFavorites);
 
 
