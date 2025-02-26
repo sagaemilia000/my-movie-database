@@ -235,7 +235,7 @@ body {
 }
 
 .empty-fav {
-    color: var(--primary-white);
+    color: var(--text-yellow);
     font-family: var(--text-font);
     text-align: center;
     margin-top: 2rem;
@@ -253,6 +253,12 @@ body {
         width: 70%; 
         height: auto; 
         margin-right: 0; 
+    }
+
+    .missing-poster {
+        width: 70%; 
+        height: auto; 
+        margin-right: 0;
     }
 
     .movie-title-info {
