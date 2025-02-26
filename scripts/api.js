@@ -1,21 +1,38 @@
-import oData from '../data/data.js';
 import { moviesToList, randomTrailers, searchedMovieResult, movieDetailsToDom, showFavorites } from "/scripts/domUtils.js";
 import { renderTrailers } from './modules/carousel.js';
 
+let oData = { topMovieList: [] };
+
 export async function fetchTopMovies() {
-    const response = await fetch('https://santosnr6.github.io/Data/favoritemovies.json');
-    let movies = await response.json();
-    oData.topMovieList = movies;
-
-    let top20Movies = movies.slice(0, 20);
-
-    moviesToList(top20Movies)
     
-    let trailers = randomTrailers(top20Movies, 5);
-    trailers.forEach((trailer, i) => {
-        renderTrailers(trailer, i + 1);
-    });
+    try {
+        const response = await fetch('https://santosnr6.github.io/Data/favoritemovies.json');
+        let movies = await response.json();
 
+        if (!movies || movies.length === 0) {
+            throw new Error('Could not find top-movies');
+        }
+
+        oData.topMovieList = movies;
+
+        let top20Movies = movies.slice(0, 20);
+        moviesToList(top20Movies)
+        
+        let trailers = randomTrailers(top20Movies, 5);
+        trailers.forEach((trailer, i) => {
+            renderTrailers(trailer, i + 1);
+        });
+    } catch(error) {
+        let noTopMovies = document.createElement('p');
+        noTopMovies.textContent = error.message;
+        noTopMovies.classList.add('error-msg');
+
+        let noTopMoviesCont = document.querySelector('#noTopMovies');
+        if(noTopMoviesCont) {
+            noTopMoviesCont.innerHTML = '';
+            noTopMoviesCont.appendChild(noTopMovies);
+        }
+    }
 }
 
 export async function fetchSearch(query) {
@@ -41,7 +58,7 @@ export async function fetchSearch(query) {
         }
     }
     
-}
+};
 
 function searchButton() {
     const searchBtn = document.querySelector('#searchBtn');
@@ -59,7 +76,7 @@ function searchButton() {
                 console.log(query)
             } 
         });
-}
+};
 
 function searchQry() {
     const query = localStorage.getItem('searchQuery');
@@ -75,25 +92,30 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 export async function fetchMovieDetails(movieId) {
-    
     try {
-    const detailResposne = await fetch(`http://www.omdbapi.com/?apikey=1a195302&plot=full&i=${movieId}`)
-    let detailsData = await detailResposne.json();
+        const detailResposne = await fetch(`http://www.omdbapi.com/?apikey=1a195302&plot=full&i=${movieId}`)
+        let detailsData = await detailResposne.json();
     
+        if(detailsData.Response === 'False') {
+            throw new Error('Could not find movie details')
+        }
+
+        movieDetailsToDom(detailsData)
     
-    if(detailsData.Response === 'False') {
-        throw new Error('Filmen kunde inte hämtas')
+
+        } catch(error) {
+            let noMovieDetails = document.createElement('p');
+            noMovieDetails.textContent = error.message;
+            noMovieDetails.classList.add('error-msg');
+
+            let noMovieDetailsCont = document.querySelector('#noMovieDetails');
+            if (noMovieDetailsCont) {
+                noMovieDetailsCont.innerHTML = '';
+                noMovieDetailsCont.appendChild(noMovieDetails);
+            }
     }
 
-    
-    movieDetailsToDom(detailsData)
-    
-
-    } catch(error) {
-        console.log('error')
-    }
-
-}
+};
 
 document.addEventListener('DOMContentLoaded', () => {
     const movieId = localStorage.getItem('selectedMovieId');
@@ -104,18 +126,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    localStorage.removeItem('searchQuery'); 
     const searchInput = document.querySelector('#searchInput');
     if (searchInput) searchInput.value = ''; 
 });
 
 export function getFavorites() {
     return JSON.parse(localStorage.getItem('favorites')) || [];
-}
+};
 
 export function saveFavorites(favorites) {
     localStorage.setItem('favorites', JSON.stringify(favorites));
-}
+};
 
 document.addEventListener('DOMContentLoaded', showFavorites);
 

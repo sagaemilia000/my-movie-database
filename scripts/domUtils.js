@@ -47,7 +47,6 @@ export function moviesToList(movies) {
             
             localStorage.setItem('selectedMovieId', movie.imdbID);
             window.location.href = '/movie.html';
-            // fetchMovieDetails()
             
         })
     });
@@ -110,8 +109,6 @@ export function movieDetailsToDom(detailsData) {
     let infoContainer = document.createElement('div');
     infoContainer.classList.add('info-container');
 
-    //Poster
-
     let posterElement = document.createElement('img')
     posterElement.classList.add('missing-poster')
     posterElement.alt = `${detailsData.Title} poster`;
@@ -135,12 +132,10 @@ export function movieDetailsToDom(detailsData) {
     
         starIcon.addEventListener('click', () => fillStar(starIcon, detailsData));
 
-    //Title
     let titleElement = document.createElement('h1');
     titleElement.textContent = detailsData.Title;
     titleElement.classList.add('movie-title-info')
 
-    //List
     let infoList = document.createElement('ul')
     infoList.classList.add('info-list')
     movieInfoPage.appendChild(infoList)
@@ -160,13 +155,10 @@ export function movieDetailsToDom(detailsData) {
     let ratingsElement = document.createElement('li')
     ratingsElement.textContent = `Ratings: ${detailsData.imdbRating}/10`
 
-    //Plot
-
     let plotElement = document.createElement('p')
     plotElement.classList.add('plot-text')
     plotElement.textContent = `${detailsData.Plot}`
 
-    //More details
     let infoListTwo = document.createElement('ul')
     infoListTwo.classList.add('info-list')
     movieInfoPage.appendChild(infoListTwo)
@@ -204,7 +196,7 @@ export function movieDetailsToDom(detailsData) {
     infoListTwo.appendChild(directorElement)
     infoListTwo.appendChild(writerElement)
     infoListTwo.appendChild(actorsElement)
-}
+};
 
 
 function fillStar(starIcon, movie) {
@@ -222,7 +214,7 @@ function fillStar(starIcon, movie) {
     }
 
     saveFavorites(favorites);
-}
+};
 
 
 export function showFavorites() {
@@ -245,7 +237,7 @@ export function showFavorites() {
     }
 
     moviesToList(favorites);
-}
+};
 
 
 
