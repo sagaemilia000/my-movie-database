@@ -1,4 +1,3 @@
-// import { fetchMovieDetails } from "./api.js";
 import { getFavorites, saveFavorites } from "./api.js";
 
 export function moviesToList(movies) {
@@ -69,6 +68,10 @@ export function searchedMovieResult(movies) {
         let starIcon = document.createElement('span')
         starIcon.classList.add('material-symbols-outlined')
         starIcon.textContent = 'star'
+
+        let favorites = getFavorites();
+        let isFavorite = favorites.some(fav => fav.imdbID === movie.imdbID);
+        starIcon.style.fontVariationSettings = isFavorite ? "'FILL' 1" : "'FILL' 0";
         
 
         starIcon.addEventListener('click', () => fillStar(starIcon, movie));
