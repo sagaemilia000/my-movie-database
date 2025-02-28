@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Movie Database - Search</title>
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=star" />
+    <script
+      src="https://kit.fontawesome.com/f300007e95.js"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="./scripts/script.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="content-wrapper header__flex">
+        <a href="index.html"
+          ><img class="header__logo" src="./res/logo.png" alt="logotype"
+        /></a>
+        <form class="header__form" id="searchForm">
+          <input
+            class="header__input"
+            id="searchInput"
+            type="text"
+            aria-label="Search"
+          />
+          <button class="header__form-btn" id="searchBtn">Search</button>
+        </form>
+      </div>
+    </header>
+
+    <!-- Search movies section -->
+    <section>
+      <div class="content-wrapper">
+        <h2 class="search-title" id="favoritesHeader">Search Results</h2>
+        <section class="error-container"></section>
+        <section class="search-container" id="searchContainer">
+          <!-- <p id="errorMsg"></p> -->
+        </section>
+      </div>
+    </section>
+  </body>
+</html>
